@@ -1,0 +1,6 @@
+.notification-dropdown {
+  display: none;
+}
+.notification-dropdown.show {
+  display: block;
+}

@@ -1,0 +1,10 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title">{{ question.title }}</h5>
+    <p class="card-text text-muted">{{ question.description | slice:0:150 }}...</p>
+    <div class="d-flex justify-content-between align-items-center">
+      <small class="text-muted">By {{ question.author?.username || 'Anonymous' }} - {{ question.createdAt | date:'medium' }}</small>
+      <a [routerLink]="['/questions', question._id]" class="btn btn-primary btn-sm">View Details</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Medical Questions</h2>
+    @if (authService.isLoggedIn()) {
+      <button class="btn btn-primary" (click)="toggleForm()">
+        {{ showForm ? 'Cancel' : 'Ask a Question' }}
+      </button>
+    }
+  </div>
+
+  @if (showForm) {
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5>Ask a New Question</h5>
+        <form (ngSubmit)="createQuestion()">
+          <div class="mb-3">
+            <label class="form-label">Title</label>
+            <input type="text" class="form-control" [(ngModel)]="newTitle" name="title" required placeholder="What is your question?">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea class="form-control" [(ngModel)]="newDescription" name="description" rows="4" required placeholder="Provide more details..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-success">Submit Question</button>
+        </form>
+      </div>
+    </div>
+  }
+
+  @if (questions.length === 0) {
+    <p class="text-muted">No questions yet. Be the first to ask!</p>
+  }
+
+  @for (question of questions; track question._id) {
+    <app-question-card [question]="question"></app-question-card>
+  }
+</div>

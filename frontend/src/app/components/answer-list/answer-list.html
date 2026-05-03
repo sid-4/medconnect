@@ -1,0 +1,30 @@
+<div class="mt-4">
+  <h5>Answers ({{ answers.length }})</h5>
+
+  @if (answers.length === 0) {
+    <p class="text-muted">No answers yet. Be the first to answer!</p>
+  }
+
+  @for (answer of answers; track answer._id) {
+    <div class="card mb-2">
+      <div class="card-body">
+        @if (editingId === answer._id) {
+          <textarea class="form-control mb-2" [(ngModel)]="editContent" rows="3"></textarea>
+          <button class="btn btn-success btn-sm me-2" (click)="saveEdit(answer._id)">Save</button>
+          <button class="btn btn-secondary btn-sm" (click)="cancelEdit()">Cancel</button>
+        } @else {
+          <p class="card-text">{{ answer.content }}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <small class="text-muted">By {{ answer.author?.username || 'Anonymous' }} - {{ answer.createdAt | date:'medium' }}</small>
+            @if (authService.currentUser()?.id === answer.author?._id) {
+              <div>
+                <button class="btn btn-outline-primary btn-sm me-1" (click)="startEdit(answer)">Edit</button>
+                <button class="btn btn-outline-danger btn-sm" (click)="deleteAnswer(answer._id)">Delete</button>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>
